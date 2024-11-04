@@ -1,0 +1,140 @@
+# Admin model
+input AdminInput {
+    email: String!
+    password: String!
+}
+type AuthResponse {
+    token: String!
+    expiration: Float!
+}
+type Admin {
+    id: ID!
+    email: String!
+#    password: String!
+}
+
+# Article model
+type Metadata {
+    createdAt: String!
+    updatedAt: String
+    views: [String!]
+    likes: [String!]
+}
+enum ArticleType {
+    ARTICLE
+    BREVE
+    NEWS
+    COVER
+    SPORTS
+}
+input ArticleInput {
+    title: String!
+    message: String!
+    image: String!
+    type: ArticleType!
+    author: String!
+}
+type ArticleInputType {
+    title: String!
+    message: String!
+    image: String!
+    type: ArticleType!
+    author: String!
+}
+type Article {
+    id: ID!
+    posted: Boolean!
+    metadata: Metadata!
+    articleInput: ArticleInputType!
+}
+
+# Playlist model
+enum StreamingPlatform {
+    YOUTUBEMUSIC
+    YOUTUBE
+    SPOTIFY
+    DEEZER
+    APPLEMUSIC
+    BOOMPLAY
+}
+type SingleLink {
+    link: String!
+    platform: StreamingPlatform!
+}
+input SingleLinkInput {
+    link: String!
+    platform: StreamingPlatform!
+}
+type Single {
+    title: String!
+    image: String!
+    singleLinks: [SingleLink!]!
+}
+input SingleInput {
+    title: String!
+    image: String!
+    singleLinks: [SingleLinkInput!]!
+}
+input PlaylistInput {
+    title: String!
+    image: String!
+    description: String!
+    author: String!
+    singles: [SingleInput!]!
+}
+
+type PlaylistInputType {
+    title: String!
+    image: String!
+    description: String!
+    author: String!
+    singles: [Single!]!
+}
+
+type Playlist {
+    id: ID!
+    posted: Boolean!
+    metadata: Metadata!
+    playlistInput: PlaylistInputType!
+}
+
+# User model
+type UserMetadata {
+    views: [String!]!
+    likes: [String!]!
+}
+type User {
+    id: ID!
+    userMetadata: UserMetadata!
+    email: String!
+}
+# Queries
+type Query {
+    getAllArticles: [Article!]!
+    getArticleById(id: ID!): Article!
+    getAllAdmins: [Admin!]!
+    getAdminById(id: ID!): Admin!
+    getAllPlaylists: [Playlist!]!
+    getPlaylistById(id: ID!): Playlist!
+    getAllUsers: [User!]!
+    getUserById(id: ID!): User!
+}
+
+# Mutations
+type Mutation {
+    createArticle(articleInput: ArticleInput!): Article!
+    updateArticle(id: ID!, articleInput: ArticleInput!): Article!
+    updateArticleStatus(id: ID!): Article!
+    deleteArticle(id: ID!): Boolean
+    createAdmin(adminInput: AdminInput!): Admin!
+    updateAdmin(id: ID!, adminInput: AdminInput!): Admin!
+    login(adminInput: AdminInput!): AuthResponse!
+    createPlaylist(playlistInput: PlaylistInput!): Playlist!
+    updatePlaylist(id: ID!, playlistInput: PlaylistInput!): Playlist!
+    updatePlaylistStatus(id: ID!): Playlist
+    deletePlaylist(id: ID!): Boolean
+    createUser(adminInput: AdminInput!): User!
+    updateUser(id: ID!, adminInput: AdminInput!): User!
+    deleteUser(id: ID!): Boolean
+
+}
