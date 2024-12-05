@@ -1,5 +1,7 @@
 package com.example.kongsambablogapi.utils;
 
+import com.example.kongsambablogapi.exception.RequestException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
@@ -22,12 +25,15 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private Long jwtExpirationInMs;
 
+    public JwtUtil() {}
+
     public Long getJwtExpirationInMs () {
         return jwtExpirationInMs;
     }
     public SecretKey getSignInKey () {
-        byte[] secretKeyBytes = Base64.getDecoder().decode(secretKey);
-        return new SecretKeySpec(secretKeyBytes, SignatureAlgorithm.HS512.getJcaName());
+//        byte[] secretKeyBytes = Base64.getDecoder().decode(secretKey);
+//        return new SecretKeySpec(secretKeyBytes, SignatureAlgorithm.HS512.getJcaName());
+        return Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretKey));
     }
 
     public String generateToken (String userId) {
@@ -39,7 +45,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public boolean validateToken (String token) {
+    public boolean validateToken (String token) throws RequestException {
         try {
             Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token);
             return true;

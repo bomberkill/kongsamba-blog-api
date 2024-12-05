@@ -3,12 +3,12 @@ package com.example.kongsambablogapi.models.articles;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Articles")
+@Document(collection = "articles")
 public class Article {
     @Id
     private String id;
     private boolean posted;
-    private  Metadata metadata;
+    private Metadata metadata;
     private ArticleInput articleInput;
 
 //    public Article(ArticleInput articleInput, Metadata metadata) {

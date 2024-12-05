@@ -24,6 +24,11 @@ dependencyManagement {
        }
 }
 
+tasks.register('encodePassword', JavaExec) {
+	mainClass = 'com.example.kongsambablogapi.utils.PasswordEncoderUtil'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'

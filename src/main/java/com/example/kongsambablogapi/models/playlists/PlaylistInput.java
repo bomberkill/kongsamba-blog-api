@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PlaylistInput {
     private String title;
-    private  String description;
+    private String description;
     private String image;
     private String author;
     private List<Single> singles;

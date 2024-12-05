@@ -1,5 +1,6 @@
 package com.example.kongsambablogapi.resolvers.admins;
 
+import com.example.kongsambablogapi.exception.RequestException;
 import com.example.kongsambablogapi.models.admins.Admin;
 import com.example.kongsambablogapi.models.admins.AdminInput;
 import com.example.kongsambablogapi.models.admins.AuthResponse;
@@ -30,23 +31,24 @@ public class AdminMutationResolver {
 
     @MutationMapping
     public AuthResponse login (@Argument AdminInput adminInput) {
-        try {
-            return adminService.login(adminInput);
-        } catch (IllegalArgumentException e) {
-            // Handle the exception, e.g., log it and return a specific error message
-            System.out.println(e.getMessage() + " " + LocalDateTime.now());
-            return null; // Or handle as needed
-        }
+        return adminService.login(adminInput);
+//        try {
+//        } catch (IllegalArgumentException e) {
+//            // Handle the exception, e.g., log it and return a specific error message
+//            System.out.println(e.getMessage() + " " + LocalDateTime.now());
+//            return null;
+//
+//        }
     }
 
     @MutationMapping
     public Admin updateAdmin (@Argument String id, @Argument AdminInput adminInput) {
-        try {
-            return adminService.updateAdmin(id, adminInput);
-        } catch (IllegalArgumentException e) {
-            // Handle the exception, e.g., log it and return a specific error message
-            System.out.println(e.getMessage());
-            return null; // Or handle as needed
-        }
+        return adminService.updateAdmin(id, adminInput);
+//        try {
+//        } catch (IllegalArgumentException e) {
+//            // Handle the exception, e.g., log it and return a specific error message
+//            System.out.println(e.getMessage());
+//            return null; // Or handle as needed
+//        }
     }
 }

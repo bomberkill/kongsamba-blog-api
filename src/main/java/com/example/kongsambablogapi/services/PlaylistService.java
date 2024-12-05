@@ -8,6 +8,8 @@ import com.example.kongsambablogapi.repositories.AdminRepository;
 import com.example.kongsambablogapi.repositories.PlaylistRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,7 +24,16 @@ public class PlaylistService {
     @Autowired
     private AdminRepository adminRepository;
 
-    public List<Playlist> getAllPlaylists () {
+    public List<Playlist> getAllPlaylists (Boolean posted, Integer number) {
+        if (number != null && number  > 0){
+            Pageable pageable = PageRequest.of(0, number);
+            if (posted != null) {
+                return playlistRepository.findAllByPostedOrderByMetadataCreatedAtDesc(posted,pageable);
+            }
+            return playlistRepository.findAllByOrderByMetadataCreatedAtDesc(pageable);
+        } else if (posted != null) {
+            return playlistRepository.findAllByPostedOrderByMetadataCreatedAtDesc(posted);
+        }
         return playlistRepository.findAll();
     }
     public Optional<Playlist> getPlaylistById (String id) {
@@ -37,7 +48,7 @@ public class PlaylistService {
         }
         for (Single single: playlistInput.getSingles()) {
             if (single.getSingleLinks().isEmpty()) {
-                throw new IllegalArgumentException("Error when creating: singles links cannot be null ou empty " + single.getImage() + " " + single.getTitle() + " " + single.getSingleLinks());
+                throw new IllegalArgumentException("Error when creating: singles links cannot be null ou empty " + " " + single.getTitle() + " " + single.getSingleLinks());
             }
         }
         Metadata metadata = new Metadata();

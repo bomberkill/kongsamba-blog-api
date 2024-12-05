@@ -4,8 +4,9 @@ input AdminInput {
     password: String!
 }
 type AuthResponse {
+    userId: ID!
     token: String!
-    expiration: Float!
+#    expiration: Float!
 }
 type Admin {
     id: ID!
@@ -67,12 +68,10 @@ input SingleLinkInput {
 }
 type Single {
     title: String!
-    image: String!
     singleLinks: [SingleLink!]!
 }
 input SingleInput {
     title: String!
-    image: String!
     singleLinks: [SingleLinkInput!]!
 }
 input PlaylistInput {
@@ -98,6 +97,34 @@ type Playlist {
     playlistInput: PlaylistInputType!
 }
 
+# Event model
+type EventMetadata {
+    createdAt: String!
+    updatedAt: String
+}
+input EventInput {
+    title: String
+    image: String!
+    author: String!
+    link: String
+    startAt: String
+    endAt: String!
+}
+type EventInputType {
+    title: String
+    image: String!
+    author: String!
+    link: String
+    startAt: String
+    endAt: String!
+}
+type Event {
+    id: ID!
+    posted: Boolean!
+    eventInput: EventInputType!
+    metadata: EventMetadata!
+}
+
 # User model
 type UserMetadata {
     views: [String!]!
@@ -110,11 +137,14 @@ type User {
 }
 # Queries
 type Query {
-    getAllArticles: [Article!]!
+    getAllArticles(posted: Boolean, articleType: ArticleType, number: Int): [Article!]!
     getArticleById(id: ID!): Article!
     getAllAdmins: [Admin!]!
     getAdminById(id: ID!): Admin!
-    getAllPlaylists: [Playlist!]!
+    getAllEvents(posted: Boolean): [Event!]!
+    getEventById(id: ID!): Event!
+    verifyToken(token: String!): Boolean!
+    getAllPlaylists(posted: Boolean, number: Int): [Playlist!]!
     getPlaylistById(id: ID!): Playlist!
     getAllUsers: [User!]!
     getUserById(id: ID!): User!
@@ -133,8 +163,11 @@ type Mutation {
     updatePlaylist(id: ID!, playlistInput: PlaylistInput!): Playlist!
     updatePlaylistStatus(id: ID!): Playlist
     deletePlaylist(id: ID!): Boolean
+    createEvent(eventInput: EventInput!): Event!
+    updateEvent(id: ID!, eventInput: EventInput!): Event!
+    updateEventStatus(id: ID!): Event
+    deleteEvent(id: ID!): Boolean
     createUser(adminInput: AdminInput!): User!
     updateUser(id: ID!, adminInput: AdminInput!): User!
     deleteUser(id: ID!): Boolean
-
 }

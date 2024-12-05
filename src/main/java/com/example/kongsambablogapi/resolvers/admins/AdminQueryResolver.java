@@ -24,4 +24,9 @@ public class AdminQueryResolver  {
         System.out.println("Fetched admin: " + adminService.getAdminById(id));
         return adminService.getAdminById(id).orElse(null);
     }
+
+    @QueryMapping
+    public Boolean verifyToken (@Argument String token) {
+        return adminService.verifyToken(token);
+    }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public  class Single {
     private String title;
-    private String image;
+//    private String image;
     private List<SingleLink> singleLinks;
 
     public Single() {
@@ -20,13 +20,13 @@ public  class Single {
         this.singleLinks = singleLinks;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
+//    public String getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(String image) {
+//        this.image = image;
+//    }
 
     public String getTitle() {
         return title;

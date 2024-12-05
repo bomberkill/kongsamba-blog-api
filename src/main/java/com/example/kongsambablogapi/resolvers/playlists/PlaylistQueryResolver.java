@@ -16,8 +16,8 @@ public  class PlaylistQueryResolver {
     private PlaylistService playlistService;
 
     @QueryMapping
-    public List<Playlist> getAllPlaylists () {
-        return playlistService.getAllPlaylists();
+    public List<Playlist> getAllPlaylists (@Argument Boolean posted, @Argument Integer number) {
+        return playlistService.getAllPlaylists(posted, number);
     }
 
     @QueryMapping
