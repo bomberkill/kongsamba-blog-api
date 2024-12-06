@@ -17,38 +17,38 @@ public class ArticleMutationResolver {
 
     @MutationMapping
     public Article createArticle (@Argument ArticleInput articleInput) {
-        try {
-            return articleService.createArticle(articleInput);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+        return articleService.createArticle(articleInput);
+//        try {
+//        } catch (IllegalArgumentException e) {
+//            System.out.println(e.getMessage());
+//            return null;
+//        }
     }
 
     @MutationMapping
     public Article updateArticle (@Argument String id, @Argument ArticleInput articleInput) {
-        try {
-            return articleService.updateArticle(id, articleInput);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+        return articleService.updateArticle(id, articleInput);
+//        try {
+//        } catch (IllegalArgumentException e) {
+//            System.out.println(e.getMessage());
+//            return null;
+//        }
     }
     @MutationMapping
     public Article updateArticleStatus (@Argument String id) {
-        try {
-            return articleService.updateArticleStatus(id);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+        return articleService.updateArticleStatus(id);
+//        try {
+//        } catch (IllegalArgumentException e) {
+//            System.out.println(e.getMessage());
+//            return null;
+//        }
     }
     @MutationMapping
     public void deleteArticle (@Argument String id) {
-        try {
-            articleService.deleteArticle(id);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        articleService.deleteArticle(id);
+//        try {
+//        } catch (IllegalArgumentException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 }

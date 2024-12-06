@@ -1,6 +1,7 @@
 package com.example.kongsambablogapi.resolvers.articles;
 
 import com.example.kongsambablogapi.models.articles.Article;
+import com.example.kongsambablogapi.models.articles.ArticleType;
 import com.example.kongsambablogapi.services.ArticleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public  class ArticleQueryResolver {
     private ArticleService articleService;
 
     @QueryMapping
-    public List<Article> getAllArticles () {
-        return articleService.getAllArticles();
+    public List<Article> getAllArticles (@Argument Boolean posted, @Argument ArticleType articleType,@Argument Integer number) {
+        return articleService.getAllArticles(posted, articleType, number);
     };
 
     @QueryMapping

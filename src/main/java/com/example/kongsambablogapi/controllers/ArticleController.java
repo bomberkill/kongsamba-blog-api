@@ -23,10 +23,10 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping
-    public List<Article> getAllArticles() {
-        return articleService.getAllArticles();
-    }
+//    @GetMapping
+//    public List<Article> getAllArticles() {
+//        return articleService.getAllArticles();
+//    }
     @GetMapping("/{id}")
     public Optional<Article> getArticleById (@PathVariable String id) {
         return articleService.getArticleById(id);
